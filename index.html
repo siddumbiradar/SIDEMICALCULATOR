@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta name="google-site-verification" content="A71cd13kG7NctLIFCP5arOSeh8pGj71KImsjE5L412s" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Loan EMI Calculator with Amortization Schedule</title>
+
+<meta name="description" content="Free EMI calculator with amortization schedule, prepayment calculator, EMI chart and downloadable PDF.">
+
+<meta name="keywords" content="EMI calculator, loan EMI calculator India, amortization schedule calculator">
+
+<meta name="robots" content="index,follow">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(120deg,#4facfe,#00f2fe);
+margin:0;
+}
+.container{
+max-width:1000px;
+margin:auto;
+background:white;
+padding:25px;
+margin-top:30px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+overflow:hidden;
+}
+
+h1{text-align:center;}
+
+.input-group{margin-bottom:20px;}
+
+label{font-weight:bold;}
+
+input[type=number]{
+width:100%;
+padding:8px;
+border-radius:5px;
+border:1px solid #ccc;
+margin-top:5px;
+}
+
+input[type=range]{width:100%;}
+
+button{
+background:#007bff;
+color:white;
+padding:10px 18px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{background:#0056b3;}
+
+.result{
+background:#eef2ff;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+}
+
+.chart-container{margin-top:30px;}
+
+.table-wrapper{
+overflow-x:auto;
+margin-top:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+min-width:600px;
+}
+
+th{
+background:#007bff;
+color:white;
+padding:8px;
+}
+
+td{
+border:1px solid #ccc;
+padding:8px;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Loan EMI Calculator</h1>
+
+<div class="input-group">
+<label>Loan Amount (₹)</label>
+<input type="number" id="loanAmount" value="500000">
+<input type="range" id="loanSlider" min="10000" max="10000000" step="10000" value="500000">
+</div>
+
+<div class="input-group">
+<label>Interest Rate (% per year)</label>
+<input type="number" id="interestRate" value="8">
+<input type="range" id="rateSlider" min="1" max="20" step="0.1" value="8">
+</div>
+
+<div class="input-group">
+<label>Loan Tenure</label>
+<input type="number" id="tenure" value="5">
+
+<label>
+<input type="radio" name="tenureType" value="years" checked> Years
+</label>
+
+<label>
+<input type="radio" name="tenureType" value="months"> Months
+</label>
+</div>
+
+<div class="input-group">
+<label>Extra Monthly Prepayment (₹)</label>
+<input type="number" id="extraPayment" value="0">
+</div>
+
+<button onclick="calculateEMI()">Calculate EMI</button>
+
+<div class="result" id="emiResult">Monthly EMI: ₹0</div>
+
+<div class="result" id="interestResult">Total Interest: ₹0</div>
+
+<div class="result" id="paymentResult">Total Payment: ₹0</div>
+
+<div class="chart-container">
+<canvas id="emiChart"></canvas>
+</div>
+
+<button onclick="downloadPDF()">Download Amortization Schedule PDF</button>
+
+<div class="table-wrapper">
+
+<table id="scheduleTable">
+
+<thead>
+
+<tr>
+<th>Month</th>
+<th>EMI</th>
+<th>Principal</th>
+<th>Interest</th>
+<th>Balance</th>
+</tr>
+
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+loanSlider.oninput=()=>loanAmount.value=loanSlider.value
+loanAmount.oninput=()=>loanSlider.value=loanAmount.value
+
+rateSlider.oninput=()=>interestRate.value=rateSlider.value
+interestRate.oninput=()=>rateSlider.value=interestRate.value
+
+let scheduleData=[]
+let chart
+
+function calculateEMI(){
+
+let P=parseFloat(loanAmount.value)
+let annualRate=parseFloat(interestRate.value)
+let tenure=parseFloat(document.getElementById("tenure").value)
+let extra=parseFloat(document.getElementById("extraPayment").value)
+
+let type=document.querySelector('input[name="tenureType"]:checked').value
+let months=type=="years"?tenure*12:tenure
+
+let r=annualRate/12/100
+
+let emi=P*r*Math.pow((1+r),months)/(Math.pow((1+r),months)-1)
+
+emi=Math.round(emi)
+
+let balance=P
+let totalInterest=0
+
+let tbody=document.querySelector("#scheduleTable tbody")
+tbody.innerHTML=""
+
+scheduleData=[]
+
+for(let i=1;i<=months;i++){
+
+if(balance<=0) break
+
+let interest=balance*r
+let principal=emi-interest
+
+principal+=extra
+
+if(principal>balance){
+principal=balance
+}
+
+balance-=principal
+
+interest=Math.round(interest)
+principal=Math.round(principal)
+balance=Math.round(balance)
+
+totalInterest+=interest
+
+let row=`<tr>
+<td>${i}</td>
+<td>${emi}</td>
+<td>${principal}</td>
+<td>${interest}</td>
+<td>${balance<0?0:balance}</td>
+</tr>`
+
+tbody.innerHTML+=row
+
+scheduleData.push([i,emi,principal,interest,balance<0?0:balance])
+
+}
+
+let totalPayment=P+totalInterest
+
+emiResult.innerHTML="Monthly EMI: ₹"+emi
+interestResult.innerHTML="Total Interest: ₹"+totalInterest
+paymentResult.innerHTML="Total Payment: ₹"+totalPayment
+
+generateChart(P,totalInterest)
+
+}
+
+function generateChart(principal,interest){
+
+if(chart) chart.destroy()
+
+chart=new Chart(document.getElementById("emiChart"),{
+
+type:'pie',
+
+data:{
+labels:["Principal","Interest"],
+datasets:[{
+data:[principal,interest],
+backgroundColor:["#28a745","#dc3545"]
+}]
+}
+
+})
+
+}
+
+function downloadPDF(){
+
+const { jsPDF } = window.jspdf
+
+let doc=new jsPDF()
+
+doc.text("Loan Amortization Schedule",14,15)
+
+doc.autoTable({
+head:[["Month","EMI","Principal","Interest","Balance"]],
+body:scheduleData,
+startY:20,
+styles:{halign:'center'}
+})
+
+doc.save("Loan-Amortization-Schedule.pdf")
+
+}
+
+</script>
+
+</body>
+</html>
