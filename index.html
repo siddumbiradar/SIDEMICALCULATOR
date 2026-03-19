@@ -1,0 +1,3376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Advanced Financial Calculators</title>
+
+<style>
+
+/* GLOBAL RESET */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,system-ui,Arial;
+}
+
+/* BODY */
+body{
+background:linear-gradient(135deg,#f1f5ff,#f8fafc);
+min-height:100vh;
+display:flex;
+flex-direction:column;
+color:#1e293b;
+}
+
+/* HEADER */
+.header{
+text-align:center;
+padding:14px;
+font-size:18px;
+font-weight:600;
+background:linear-gradient(135deg,#6dd5ed,#8fd3c8);
+}
+
+/* TAB BAR */
+.tab-bar{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin:20px auto;
+max-width:1000px;
+width:95%;
+}
+
+.tab-btn{
+padding:10px 16px;
+border-radius:8px;
+background:white;
+cursor:pointer;
+font-size:14px;
+transition:0.3s;
+}
+
+.tab-btn.active{
+background:#2563eb;
+color:white;
+}
+
+/* TAB CONTENT */
+.tab-content{
+display:none;
+max-width:1100px;
+margin:auto;
+width:95%;
+padding:10px;
+}
+
+.tab-content.active{
+display:block;
+}
+
+/* COMMON CARD */
+.calculator-area{
+background:white;
+border-radius:14px;
+padding:22px;
+margin-top:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ========================= */
+/* ✅ ISOLATED TAB STYLES */
+/* ========================= */
+
+/* EMI TAB ONLY */
+#emi h2{
+color:#2563eb;
+}
+
+/* CANARA TAB ONLY */
+#canara h2{
+color:#16a34a;
+}
+
+/* SBI TAB ONLY */
+#sbi h2{
+color:#dc2626;
+}
+
+/* FD TAB ONLY */
+#fd h2{
+color:#7c3aed;
+}
+
+/* RD TAB ONLY */
+#rd h2{
+color:#ea580c;
+}
+
+/* SIP TAB ONLY */
+#sip h2{
+color:#0ea5e9;
+}
+
+/* ========================= */
+/* CONTACT + FOOTER */
+/* ========================= */
+
+.contact-box{
+max-width:900px;
+margin:50px auto 20px auto;
+padding:20px;
+background:linear-gradient(135deg,#256,#60a5fa);
+border-radius:12px;
+color:white;
+text-align:center;
+}
+
+.contact-links{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+}
+
+.contact-links a{
+display:flex;
+align-items:center;
+gap:10px;
+background:white;
+color:#1e293b;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+}
+
+footer{
+margin-top:50px;
+background:#0f172a;
+color:#cbd5f5;
+text-align:center;
+padding:18px;
+}
+.contact-box{
+
+max-width:900px;
+margin:50px auto 20px auto;
+padding:20px;
+
+background:linear-gradient(135deg,#256,#60a5fa);
+
+border-radius:12px;
+
+color:white;
+
+text-align:center;
+
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+
+}
+
+.contact-box h3{
+
+margin-bottom:15px;
+font-size:20px;
+
+}
+
+.contact-links{
+
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+
+}
+
+.contact-links a{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+background:white;
+color:#1e293b;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:0.3s;
+
+}
+
+.contact-links a:hover{
+
+transform:translateY(-3px);
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
+
+}
+
+.contact-links img{
+
+width:22px;
+height:22px;
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Advanced Financial Calculators
+</div>
+
+<div class="tab-bar">
+<button class="tab-btn active" onclick="openTab('emi', this)">EMI Calculator</button>
+<button class="tab-btn" onclick="openTab('canara', this)">Canara Bank Personal Loan Calculator</button>
+<button class="tab-btn" onclick="openTab('sbi', this)">SBI Personal Loan Calculator</button>
+<button class="tab-btn" onclick="openTab('fd', this)">FD Calculator</button>
+<button class="tab-btn" onclick="openTab('rd', this)">RD Calculator</button>
+<button class="tab-btn" onclick="openTab('sip', this)">SIP Calculator</button>
+</div>
+
+<!-- EMI -->
+<div id="emi" class="tab-content active">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta name="google-site-verification" content="A71cd13kG7NctLIFCP5arOSeh8pGj71KImsjE5L412s"/>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Loan EMI Calculator with Amortization Schedule</title>
+
+<meta name="description" content="Free EMI calculator with amortization schedule, prepayment calculator, EMI chart and downloadable PDF.">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:linear-gradient(120deg,#FFFFFF);
+margin:0;
+}
+
+.EMIcontainer{
+max-width:1000px;
+margin:auto;
+background:white;
+padding:25px;
+margin-top:30px;
+border-radius:10px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h1{text-align:center}
+
+.EMIinput-group{margin-bottom:18px}
+
+input[type=number]{
+width:100%;
+padding:8px;
+border-radius:5px;
+border:1px solid #ccc;
+margin-top:5px;
+}
+
+input[type=range]{width:100%}
+
+.EMIbtn{
+background:#007bff;
+color:white;
+padding:10px 18px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.EMIresult{
+background:#eef2ff;
+padding:12px;
+margin-top:10px;
+border-radius:6px;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+}
+
+.EMIoption-group{
+display:flex;
+gap:10px;
+margin-top:8px;
+}
+
+.EMIoption-group input{
+display:none;
+}
+
+.EMIoption-group label{
+padding:8px 14px;
+border:1px solid #007bff;
+border-radius:5px;
+cursor:pointer;
+font-weight:bold;
+background:white;
+}
+
+.EMIoption-group input:checked + label{
+background:#007bff;
+color:white;
+}
+
+.EMItable-wrapper{
+overflow-x:auto;
+margin-top:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#007bff;
+color:white;
+padding:8px;
+}
+
+td{
+border:1px solid #ccc;
+padding:8px;
+text-align:center;
+}
+
+.EMIprepay-row{
+display:flex;
+gap:10px;
+margin-top:10px;
+}
+
+.EMIprepay-row input{
+flex:1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="EMIcontainer">
+
+<h1>Loan EMI Calculator</h1>
+
+<div class="EMIinput-group">
+<label>Loan Amount (₹)</label>
+<input type="number" id="EMIloanAmount">
+<input type="range" id="EMIloanSlider" min="10000" max="10000000" step="10000">
+</div>
+
+<div class="EMIinput-group">
+<label>Interest Rate (% per year)</label>
+<input type="number" id="EMIinterestRate">
+<input type="range" id="EMIrateSlider" min="1" max="30" step="0.1">
+</div>
+
+<div class="EMIinput-group">
+<label>Loan Tenure</label>
+<input type="number" id="EMItenure">
+
+<div class="EMIoption-group">
+<input type="radio" id="EMIyears" name="EMItenureType" value="years" checked>
+<label for="EMIyears">Years</label>
+
+<input type="radio" id="EMImonths" name="EMItenureType" value="months">
+<label for="EMImonths">Months</label>
+</div>
+</div>
+
+<div class="EMIinput-group">
+<label>Repayment Frequency</label>
+
+<div class="EMIoption-group">
+<input type="radio" id="EMImonthly" name="EMIfrequency" value="monthly" checked>
+<label for="EMImonthly">Monthly</label>
+
+<input type="radio" id="EMIquarterly" name="EMIfrequency" value="quarterly">
+<label for="EMIquarterly">Quarterly</label>
+
+<input type="radio" id="EMIhalfyearly" name="EMIfrequency" value="halfyearly">
+<label for="EMIhalfyearly">Half-Yearly</label>
+</div>
+</div>
+
+<div class="EMIinput-group">
+
+<label>Loan Prepayments</label>
+
+<div id="EMIprepaymentContainer"></div>
+
+<button class="EMIbtn" onclick="EMIaddPrepayment()">Add Prepayment</button>
+
+</div>
+
+<button class="EMIbtn" onclick="EMIcalculateEMI()">Calculate EMI</button>
+
+<div class="EMIresult" id="EMIemiResult">EMI: ₹0</div>
+<div class="EMIresult" id="EMIinterestResult">Total Interest: ₹0</div>
+<div class="EMIresult" id="EMIpaymentResult">Total Payment: ₹0</div>
+
+<canvas id="EMIchart"></canvas>
+
+<button class="EMIbtn" onclick="EMIdownloadPDF()">Download Amortization Schedule PDF</button>
+
+<div class="EMItable-wrapper">
+
+<table id="EMIscheduleTable">
+
+<thead>
+<tr>
+<th>Period</th>
+<th>EMI</th>
+<th>Principal</th>
+<th>Interest</th>
+<th>Balance</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+</div>
+<script>
+
+const EMIloanSlider=document.getElementById("EMIloanSlider")
+const EMIloanAmount=document.getElementById("EMIloanAmount")
+
+const EMIrateSlider=document.getElementById("EMIrateSlider")
+const EMIinterestRate=document.getElementById("EMIinterestRate")
+
+EMIloanSlider.oninput=()=>{
+EMIloanAmount.value=EMIloanSlider.value
+}
+
+EMIloanAmount.oninput=()=>{
+EMIloanSlider.value=EMIloanAmount.value
+}
+
+EMIrateSlider.oninput=()=>{
+EMIinterestRate.value=EMIrateSlider.value
+}
+
+EMIinterestRate.oninput=()=>{
+EMIrateSlider.value=EMIinterestRate.value
+}
+
+function EMIaddPrepayment(){
+
+let div=document.createElement("div")
+
+div.className="EMIprepay-row"
+
+div.innerHTML=`
+<input type="number" class="EMIprepayAmount" placeholder="Prepayment Amount ₹">
+<input type="number" class="EMIprepayMonth" placeholder="Months/FromStart">
+`
+
+document.getElementById("EMIprepaymentContainer").appendChild(div)
+
+}
+
+let EMIscheduleData=[]
+let EMIchart
+
+function EMIcalculateEMI(){
+
+let P=parseFloat(EMIloanAmount.value)
+let annualRate=parseFloat(EMIinterestRate.value)
+let tenure=parseFloat(document.getElementById("EMItenure").value)
+
+if(!P||!annualRate||!tenure) return
+
+let type=document.querySelector('input[name="EMItenureType"]:checked').value
+let freq=document.querySelector('input[name="EMIfrequency"]:checked').value
+
+let months=type=="years"?tenure*12:tenure
+
+let period=1
+if(freq=="quarterly") period=3
+if(freq=="halfyearly") period=6
+
+let totalPeriods=months/period
+
+let r=(annualRate/100)/(12/period)
+
+let emi=P*r*Math.pow(1+r,totalPeriods)/(Math.pow(1+r,totalPeriods)-1)
+
+emi=Math.round(emi)
+
+let balance=P
+let totalInterest=0
+
+let tbody=document.querySelector("#EMIscheduleTable tbody")
+
+let tableHTML=""
+
+EMIscheduleData=[]
+
+let prepayAmounts=document.querySelectorAll(".EMIprepayAmount")
+let prepayMonths=document.querySelectorAll(".EMIprepayMonth")
+
+let prepayments={}
+
+prepayAmounts.forEach((el,i)=>{
+let amt=parseFloat(el.value)
+let m=parseInt(prepayMonths[i].value)
+
+if(amt && m){
+prepayments[m]=amt
+}
+})
+
+for(let i=1;i<=totalPeriods;i++){
+
+if(balance<=0) break
+
+let interest=balance*r
+let principal=emi-interest
+
+if(prepayments[i]){
+principal+=prepayments[i]
+}
+
+if(principal>balance) principal=balance
+
+balance-=principal
+
+interest=Math.round(interest)
+principal=Math.round(principal)
+balance=Math.round(balance)
+
+totalInterest+=interest
+
+tableHTML+=`
+<tr>
+<td>${i}</td>
+<td>${emi}</td>
+<td>${principal}</td>
+<td>${interest}</td>
+<td>${balance<0?0:balance}</td>
+</tr>
+`
+
+EMIscheduleData.push([i,emi,principal,interest,balance<0?0:balance])
+
+}
+
+tbody.innerHTML=tableHTML
+
+let totalPayment=P+totalInterest
+
+document.getElementById("EMIemiResult").innerHTML="EMI: ₹"+emi
+document.getElementById("EMIinterestResult").innerHTML="Total Interest: ₹"+totalInterest
+document.getElementById("EMIpaymentResult").innerHTML="Total Payment: ₹"+totalPayment
+
+EMIgenerateChart(P,totalInterest)
+
+}
+
+function EMIgenerateChart(principal,interest){
+
+if(EMIchart) EMIchart.destroy()
+
+EMIchart=new Chart(document.getElementById("EMIchart"),{
+type:'pie',
+data:{
+labels:["Principal","Interest"],
+datasets:[{
+data:[principal,interest],
+backgroundColor:["#28a745","#dc3545"]
+}]
+}
+})
+
+}
+
+function EMIdownloadPDF(){
+
+const { jsPDF } = window.jspdf
+let doc=new jsPDF()
+
+doc.text("Loan Amortization Schedule",14,15)
+
+doc.autoTable({
+head:[["Period","EMI","Principal","Interest","Balance"]],
+body:EMIscheduleData,
+startY:20,
+styles:{halign:'center'}
+})
+
+doc.save("Loan-Amortization-Schedule.pdf")
+
+}
+
+</script>
+<div class="container" style="margin-top:30px">  
+<h2>How to Use EMI Calculator</h2>
+    <p>This EMI Calculator helps you estimate your monthly loan payment easily.</p>
+
+    <h3>Steps to Use:</h3>
+
+    <ol>
+      <li><b>Enter Loan Amount:</b> Input the total loan you want to take.</li>
+      <li><b>Enter Interest Rate:</b> Provide annual interest rate (e.g., 10%).</li>
+      <li><b>Select Tenure:</b> Choose loan duration in months or years.</li>
+      <li><b>Click Calculate:</b> Instantly view EMI, total interest, and total payment.</li>
+            <li><b>Add Prepayment:</b> You can add Multiple prepayemts and how many months after your loan date should be enter same is reflected in amortization Schedule.</li>
+    </ol>
+
+    <h3>Formula Used:</h3>
+    <p>
+      EMI = [P × R × (1+R)^N] / [(1+R)^N – 1]
+    </p>
+
+    <ul>
+      <li><b>P</b> = Loan Amount</li>
+      <li><b>R</b> = Monthly Interest Rate</li>
+      <li><b>N</b> = Number of Months</li>
+    </ul>
+
+    <h3>Tips:</h3>
+    <ul>
+      <li>Lower tenure = Higher EMI but less interest</li>
+      <li>Higher tenure = Lower EMI but more interest</li>
+      <li>Compare multiple scenarios before taking loan</li>
+    </ul>
+<h2>About Loan EMI Calculator</h2>  <p>  
+A Loan EMI Calculator helps borrowers estimate their monthly loan payments quickly.  
+EMI (Equated Monthly Installment) is the fixed amount paid every month to repay a loan.  
+It includes both the principal amount and the interest charged by the lender.  
+</p>  <h3>How EMI is Calculated</h3>  <p>  
+EMI is calculated using a standard mathematical formula based on the loan amount,  
+interest rate, and loan tenure. The calculator automatically determines how much  
+principal and interest you will pay every month.  
+</p>  <h3>What is Principal Amount?</h3>  <p>  
+The principal is the original loan amount borrowed from the lender.  
+For example, if you take a loan of ₹10,00,000, the principal amount is ₹10,00,000.  
+</p>  <h3>What is Interest?</h3>  <p>  
+Interest is the cost of borrowing money from a bank or financial institution.  
+It is calculated as a percentage of the principal amount and is paid along with the EMI.  
+</p>  <h3>What is Loan Prepayment?</h3>  <p>  
+Prepayment means paying a portion of the loan before the scheduled due date.  
+Making prepayments can reduce the total interest paid and shorten the loan tenure.  
+</p>  <h3>Benefits of Using an EMI Calculator</h3>  <ul>  
+<li>Helps plan your loan repayment easily</li>  
+<li>Shows total interest payable</li>  
+<li>Allows comparison of loan tenures</li>  
+<li>Helps understand the impact of prepayments</li>  
+</ul>  </div>  
+</body>
+</html>
+</div>
+
+<!-- CANARA -->
+<div id="canara" class="tab-content">
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  
+<title>Canara Bank Personal Loan Eligibility Calculator</title>  
+  
+<meta name="description" content="Free Canara Bank Personal Loan Eligibility Calculator. Calculate maximum loan amount based on salary, EMI capacity and tenure with downloadable eligibility report.">  
+  
+<meta name="keywords" content="Canara Bank loan eligibility calculator, personal loan eligibility, EMI capacity calculator, loan eligibility India, salary based loan calculator">  
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>  
+  
+<style>  
+  
+*{  
+box-sizing:border-box;  
+font-family:Arial;  
+}  
+  
+CANbody{  
+margin:0;  
+background:#eef2f7;  
+}  
+  
+.CANheader{  
+background:#004a99;  
+color:white;  
+padding:16px;  
+text-align:center;  
+font-size:20px;  
+font-weight:bold;  
+}  
+  
+.CANcontainer{  
+max-width:700px;  
+margin:auto;  
+padding:15px;  
+}  
+  
+.CANcard{  
+background:white;  
+border-radius:10px;  
+padding:18px;  
+margin-bottom:15px;  
+box-shadow:0 4px 10px rgba(0,0,0,0.08);  
+}  
+  
+.CANlabel{  
+font-weight:600;  
+font-size:14px;  
+display:block;  
+margin-top:12px;  
+}  
+  
+.CANinput, .CANselect{  
+width:100%;  
+padding:12px;  
+margin-top:5px;  
+border-radius:6px;  
+border:1px solid #ccc;  
+font-size:16px;  
+}  
+  
+.CANbutton{  
+width:100%;  
+margin-top:15px;  
+padding:13px;  
+font-size:16px;  
+border:none;  
+border-radius:6px;  
+background:#004a99;  
+color:white;  
+cursor:pointer;  
+}  
+  
+.CANloan-highlight{  
+background:linear-gradient(135deg,#004a99,#0066cc);  
+color:white;  
+text-align:center;  
+padding:25px;  
+border-radius:10px;  
+margin-bottom:15px;  
+}  
+  
+.CANloan-amount{  
+font-size:36px;  
+font-weight:bold;  
+}  
+  
+.CANresult{  
+display:none;  
+}  
+  
+.CANresult-row{  
+display:flex;  
+justify-content:space-between;  
+margin:8px 0;  
+font-size:16px;  
+}  
+  
+.CANcanvas{  
+margin-top:15px;  
+}  
+  
+</style>  
+  
+<script type="application/ld+json">  
+{  
+"@context": "https://schema.org",  
+"@type": "FinancialProduct",  
+"name": "Canara Bank Personal Loan Eligibility Calculator",  
+"description": "Calculate maximum personal loan eligibility based on salary, EMI capacity and tenure.",  
+"provider": {  
+"@type": "Organization",  
+"name": "Finance Calculator"  
+}  
+}  
+</script>  
+  
+</head>  
+  
+<body class="CANbody">  
+  
+<div class="CANheader">  
+Canara Bank Personal Loan Eligibility Calculator  
+</div>  
+  
+<div class="CANcontainer">  
+  
+<div class="CANcard">  
+  
+<label class="CANlabel">Gross Monthly Salary (₹)</label>  
+<input class="CANinput" type="number" id="CANgross" oninput="CANcalculate()">  
+  
+<label class="CANlabel">Net Monthly Salary (₹)</label>  
+<input class="CANinput" type="number" id="CANnet" oninput="CANcalculate()">  
+  
+<label class="CANlabel">Existing EMI (₹)</label>  
+<input class="CANinput" type="number" id="CANexisting" value="0" oninput="CANcalculate()">  
+  
+<label class="CANlabel">Interest Rate (% per year)</label>  
+<input class="CANinput" type="number" id="CANroi" value=" " oninput="CANcalculate()">  
+<small>  
+Check latest rate on   
+<a href="https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr">  
+Canara Bank Personal Loan Interest Rates  
+</a>  
+</small>  
+  
+<label class="CANlabel">Loan Tenure</label>  
+<input class="CANinput" type="number" id="CANtenure" oninput="CANcalculate()">  
+  
+<select class="CANselect" id="CANtenureType" onchange="CANcalculate()">  
+<option value="months">Months</option>  
+<option value="years">Years</option>  
+</select>  
+  
+<button class="CANbutton" onclick="CANdownloadPDF()">Download Eligibility Report</button>  
+  
+</div>  
+  
+<div class="CANresult" id="CANresult">  
+  
+<div class="CANloan-highlight">  
+Eligible Loan Quantum  
+<div class="CANloan-amount">₹ <span id="CANloanAmount"></span></div>  
+</div>  
+  
+<div class="CANcard">  
+  
+<div class="CANresult-row">  
+<span>Maximum EMI Capacity</span>  
+<span>₹ <span id="CANmaxEmi"></span></span>  
+</div>  
+  
+<div class="CANresult-row">  
+<span>Calculated EMI</span>  
+<span>₹ <span id="CANnewEmi"></span></span>  
+</div>  
+  
+<div class="CANresult-row">  
+<span>Max Loan Limit (25 × Gross)</span>  
+<span>₹ <span id="CANgrossLimit"></span></span>  
+</div>  
+  
+<canvas id="CANchart" class="CANcanvas"></canvas>  
+  
+</div>  
+  
+</div>  
+  
+</div>  
+  
+<script>  
+  
+let CANloanValue=0;  
+let CANemiValue=0;  
+let CANallowedEmiValue=0;  
+let CANgrossLimitValue=0;  
+let CANchart;  
+  
+function CANcalculate(){  
+  
+let CANgross=parseFloat(document.getElementById("CANgross").value);  
+let CANnet=parseFloat(document.getElementById("CANnet").value);  
+let CANexisting=parseFloat(document.getElementById("CANexisting").value);  
+let CANroi=parseFloat(document.getElementById("CANroi").value);  
+let CANtenure=parseFloat(document.getElementById("CANtenure").value);  
+let CANtype=document.getElementById("CANtenureType").value;  
+  
+if(!CANgross || !CANnet || !CANroi || !CANtenure){return;}  
+  
+if(CANtype==="years"){CANtenure=CANtenure*12;}  
+  
+let CANr=CANroi/12/100;  
+  
+CANgrossLimitValue=CANgross*25;  
+  
+let CANliving=CANgross*0.25;  
+  
+CANallowedEmiValue=CANnet-CANexisting-CANliving;  
+  
+if(CANallowedEmiValue<=0){  
+document.getElementById("CANresult").style.display="none";  
+return;  
+}  
+  
+CANloanValue=CANallowedEmiValue*((Math.pow(1+CANr,CANtenure)-1)/(CANr*Math.pow(1+CANr,CANtenure)));  
+  
+if(CANloanValue>CANgrossLimitValue){  
+CANloanValue=CANgrossLimitValue;  
+}  
+  
+CANemiValue=CANloanValue*CANr*Math.pow(1+CANr,CANtenure)/(Math.pow(1+CANr,CANtenure)-1);  
+  
+document.getElementById("CANloanAmount").innerText=Math.round(CANloanValue).toLocaleString();  
+document.getElementById("CANmaxEmi").innerText=Math.round(CANallowedEmiValue).toLocaleString();  
+document.getElementById("CANnewEmi").innerText=Math.round(CANemiValue).toLocaleString();  
+document.getElementById("CANgrossLimit").innerText=Math.round(CANgrossLimitValue).toLocaleString();  
+  
+document.getElementById("CANresult").style.display="block";  
+  
+CANdrawChart(CANgross,CANliving,CANexisting,CANallowedEmiValue);  
+  
+}  
+  
+function CANdrawChart(gross,living,existing,emi){  
+  
+let ctx=document.getElementById("CANchart");  
+  
+if(CANchart){CANchart.destroy();}  
+  
+CANchart=new Chart(ctx,{  
+type:"pie",  
+data:{  
+labels:["Living Expense","Existing EMI","Available EMI"],  
+datasets:[{  
+data:[living,existing,emi],  
+backgroundColor:["#ff9800","#f44336","#4caf50"]  
+}]  
+}  
+});  
+  
+}  
+  
+function CANdownloadPDF(){  
+  
+const { jsPDF } = window.jspdf;  
+  
+let doc=new jsPDF();  
+  
+let gross=document.getElementById("CANgross").value;  
+let net=document.getElementById("CANnet").value;  
+let existing=document.getElementById("CANexisting").value;  
+let roi=document.getElementById("CANroi").value;  
+let tenure=document.getElementById("CANtenure").value;  
+  
+doc.setFontSize(18);  
+doc.text("Canara Bank Personal Loan Eligibility Report",105,20,{align:"center"});  
+  
+doc.autoTable({  
+startY:35,  
+head:[["Customer Input Details","Value"]],  
+body:[  
+["Gross Monthly Salary","₹ "+gross],  
+["Net Monthly Salary","₹ "+net],  
+["Existing EMI","₹ "+existing],  
+["Interest Rate",""+roi+" %"],  
+["Loan Tenure",""+tenure]  
+]  
+});  
+  
+doc.autoTable({  
+startY:doc.lastAutoTable.finalY+10,  
+head:[["Step","Explanation","Result"]],  
+body:[  
+["Step 1","Living Expense (25% of Gross Salary)","₹ "+(gross*0.25).toFixed(0)],  
+["Step 2","Maximum EMI Capacity","₹ "+CANallowedEmiValue.toFixed(0)],  
+["Step 3","Loan calculated using EMI formula","₹ "+CANloanValue.toFixed(0)],  
+["Step 4","Bank Policy Limit (25× Gross Salary)","₹ "+CANgrossLimitValue.toFixed(0)],  
+["Final Eligibility","Eligible Loan Amount","₹ "+CANloanValue.toFixed(0)]  
+]  
+});  
+  
+doc.text("Formula Used: EMI = P × r × (1+r)^n / ((1+r)^n − 1)",14,doc.lastAutoTable.finalY+15);  
+  
+doc.save("Canara_Loan_Eligibility_Report.pdf");  
+  
+}  
+  
+</script>  
+  
+<div class="CANcard">  
+    <h2>How to Use Canara Bank Personal Loan Eligibility Calculator</h2>
+
+    <p>
+      This calculator helps you estimate the maximum personal loan amount you may be eligible for based on your income and financial details.
+    </p>
+
+    <h3>Step-by-Step Guide</h3>
+
+    <ol>
+      <li><b>Enter Monthly Gross Salary:</b> Input your net monthly Total income (Before deductions).</li>
+       <li><b>Enter Monthly Net Salary:</b> Input your net monthly income (after deductions).</li>
+      <li><b>Enter Existing EMIs:</b> Add all your current loan EMIs (if any).</li>
+      <li><b>Select Loan Tenure:</b> Choose repayment period (in months/years).</li>
+      <li><b>Enter Interest Rate:</b> Use expected rate (e.g., 9.70%–14%).</li>
+      <li><b>Click Calculate:</b> Instantly view your eligible loan amount.</li>
+    </ol>
+<h3>About Canara Bank Personal Loan Eligibility Calculator</h3>  
+  
+<p>  
+This <b>Canara Bank Personal Loan Eligibility Calculator</b> helps you estimate the  
+maximum loan amount you may be eligible for based on your salary, existing EMI  
+obligations and loan tenure.  
+</p>  
+  
+<p>  
+Banks generally allow only a portion of your income to be used for EMI payments.  
+In this calculator we assume:  
+</p>  
+  
+<ul>  
+<li>25% of gross salary is reserved for living expenses</li>  
+<li>Existing EMI obligations are deducted</li>  
+<li>Remaining amount becomes your maximum EMI capacity</li>  
+<li>Loan amount is calculated using the EMI formula</li>  
+<li>Maximum eligibility is capped at <b>25 × Gross Monthly Salary</b></li>  
+</ul>  
+  
+<p>  
+Actual eligibility may vary depending on the bank’s credit policy, credit score,  
+employment stability and repayment history.  
+</p>  
+  
+<p>  
+You can check the latest personal loan interest rates directly on the  
+<a href="https://www.canarabank.bank.in/pages/rates-of-interest-for-retail-lending-schemes-linked-to-rllr" target="_blank">  
+Canara Bank Official Website  
+</a>.  
+</p>  
+  
+</div>  
+  
+</body>  
+</html>
+</div>
+
+<!-- SBI -->
+<div id="sbi" class="tab-content">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="keywords" content="SBI personal loan eligibility calculator, SBI loan eligibility, SBI personal loan interest rate, State Bank of India loan calculator, personal loan EMI capacity calculator">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SBI Personal Loan Eligibility Calculator</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+margin:0;
+background:linear-gradient(135deg,#e3f2fd,#f5f7ff);
+}
+
+/* FULL WIDTH CONTAINER */
+.SBI-container{
+width:100%;
+padding:15px;
+}
+
+.SBI-header{
+text-align:center;
+margin-bottom:15px;
+}
+
+.SBI-header h1{
+color:#0d47a1;
+margin:0;
+font-size:24px;
+}
+
+.SBI-header p{
+margin:4px 0 0;
+font-size:14px;
+}
+
+/* FULL WIDTH CARD */
+.SBI-card{
+background:white;
+border-radius:12px;
+padding:20px;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+width:100%;
+}
+
+.SBI-input-group{
+margin-bottom:16px;
+}
+
+.SBI-input-group label{
+font-weight:600;
+display:block;
+margin-bottom:6px;
+}
+
+.SBI-input-row{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.SBI-input-row input[type=number]{
+width:140px;
+padding:8px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+.SBI-slider{
+flex:1;
+}
+
+/* TENURE TOGGLE */
+
+.SBI-tenure-toggle{
+display:flex;
+gap:10px;
+margin-bottom:8px;
+}
+
+.SBI-tenure-toggle button{
+flex:1;
+padding:8px;
+border:none;
+border-radius:6px;
+background:#e3e8ff;
+cursor:pointer;
+font-weight:600;
+}
+
+.SBI-tenure-toggle button.active{
+background:#0d47a1;
+color:white;
+}
+
+/* RESULTS GRID */
+
+.SBI-results{
+margin-top:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+}
+
+.SBI-result-card{
+background:#f1f4ff;
+padding:16px;
+border-radius:10px;
+}
+
+.SBI-result-card h3{
+margin:0 0 5px;
+font-size:14px;
+color:#0d47a1;
+}
+
+.SBI-result-card p{
+margin:0;
+font-size:20px;
+font-weight:bold;
+}
+
+.SBI-final{
+background:#0d47a1;
+color:white;
+text-align:center;
+}
+
+.SBI-final p{
+font-size:28px;
+}
+
+/* DOWNLOAD BUTTON */
+
+.SBI-download{
+margin-top:20px;
+text-align:center;
+}
+
+.SBI-download button{
+background:#0d47a1;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+}
+
+.SBI-error{
+color:red;
+font-weight:bold;
+margin-top:10px;
+}
+
+/* MOBILE OPTIMIZATION */
+
+@media(max-width:600px){
+
+.SBI-input-row{
+flex-direction:column;
+align-items:stretch;
+}
+
+.SBI-input-row input{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="SBI-container">
+
+<div class="SBI-header">
+<h1>SBI Personal Loan Eligibility Calculator</h1>
+<p>Instant Personal Loan Eligibility Assessment</p>
+</div>
+
+<div class="SBI-card">
+
+<div class="SBI-input-group">
+<label>Net Salary (₹)</label>
+<div class="SBI-input-row">
+<input type="number" id="SBInetBox" value=" ">
+<input type="range" min="20000" max="300000" step="1000" id="SBInetSlider" class="SBI-slider" value=" ">
+</div>
+</div>
+
+<div class="SBI-input-group">
+<label>Existing EMI (₹)</label>
+<div class="SBI-input-row">
+<input type="number" id="SBIemiBox" value="0">
+<input type="range" min="0" max="100000" step="500" id="SBIemiSlider" class="SBI-slider" value="0">
+</div>
+</div>
+
+<div class="SBI-input-group">
+<label>Interest Rate (%)</label>
+<div class="SBI-input-row">
+<input type="number" id="SBIroiBox" value="">
+<input type="range" min="8" max="24" step="0.1" id="SBIroiSlider" class="SBI-slider" value=" ">
+</div>
+</div>
+
+<div class="SBI-input-group">
+
+<label>Loan Tenure</label>
+
+<div class="SBI-tenure-toggle">
+<button id="SBImonthBtn" class="active">Months</button>
+<button id="SBIyearBtn">Years</button>
+</div>
+
+<div class="SBI-input-row">
+<input type="number" id="SBItenureBox" value=" ">
+<input type="range" min="12" max="84" id="SBItenureSlider" class="SBI-slider" value=" ">
+</div>
+
+</div>
+
+<div class="SBI-error" id="SBIerror"></div>
+
+<div class="SBI-results">
+
+<div class="SBI-result-card">
+<h3>Allowed EMI Capacity</h3>
+<p id="SBIemiCapacity">₹0</p>
+</div>
+
+<div class="SBI-result-card">
+<h3>Loan from EMI Capacity</h3>
+<p id="SBIloanByEmi">₹0</p>
+</div>
+
+<div class="SBI-result-card">
+<h3>Max Loan (30 × Salary)</h3>
+<p id="SBIloanBySalary">₹0</p>
+</div>
+
+<div class="SBI-result-card">
+<h3>New EMI</h3>
+<p id="SBInewEmi">₹0</p>
+</div>
+
+<div class="SBI-result-card SBI-final">
+<h3>Eligible Loan Amount</h3>
+<p id="SBIfinalLoan">₹0</p>
+</div>
+
+</div>
+
+<div class="SBI-download">
+<button onclick="SBIdownloadPDF()">Download Eligibility Report</button>
+</div>
+
+</div>
+</div>
+
+<script>
+
+function SBIformat(x){
+return Number(x).toLocaleString('en-IN',{maximumFractionDigits:0});
+}
+
+let SBIdata={}
+let SBItenureType="months"
+
+function SBIsync(slider,box){
+slider.oninput=()=>{box.value=slider.value;SBIupdate()}
+box.oninput=()=>{slider.value=box.value;SBIupdate()}
+}
+
+SBIsync(SBInetSlider,SBInetBox)
+SBIsync(SBIemiSlider,SBIemiBox)
+SBIsync(SBIroiSlider,SBIroiBox)
+SBIsync(SBItenureSlider,SBItenureBox)
+
+SBImonthBtn.onclick=function(){
+SBItenureType="months"
+this.classList.add("active")
+SBIyearBtn.classList.remove("active")
+SBIupdate()
+}
+
+SBIyearBtn.onclick=function(){
+SBItenureType="years"
+this.classList.add("active")
+SBImonthBtn.classList.remove("active")
+SBIupdate()
+}
+
+function SBIupdate(){
+
+let net=parseFloat(SBInetBox.value)
+let existing=parseFloat(SBIemiBox.value)
+let roi=parseFloat(SBIroiBox.value)
+let tenure=parseFloat(SBItenureBox.value)
+
+if(net<20000){
+SBIerror.innerHTML="Minimum Net Salary ₹20,000 required"
+return
+}else SBIerror.innerHTML=""
+
+if(SBItenureType=="years") tenure*=12
+
+let emiCapacity=net-(0.35*net)-existing
+let r=roi/12/100
+let n=tenure
+
+let loanByEmi=emiCapacity*((Math.pow(1+r,n)-1)/(r*Math.pow(1+r,n)))
+let loanBySalary=net*30
+let finalLoan=Math.min(loanByEmi,loanBySalary)
+
+if(finalLoan>5000000) finalLoan=5000000
+
+let newEmi=(finalLoan*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1)
+
+SBIemiCapacity.innerHTML="₹"+SBIformat(emiCapacity)
+SBIloanByEmi.innerHTML="₹"+SBIformat(loanByEmi)
+SBIloanBySalary.innerHTML="₹"+SBIformat(loanBySalary)
+SBIfinalLoan.innerHTML="₹"+SBIformat(finalLoan)
+SBInewEmi.innerHTML="₹"+SBIformat(newEmi)
+
+SBIdata={net,existing,roi,tenure,emiCapacity,loanByEmi,loanBySalary,finalLoan,newEmi}
+
+}
+
+function SBIdownloadPDF(){
+
+const { jsPDF } = window.jspdf
+let doc=new jsPDF()
+
+doc.setFontSize(18)
+doc.text("SBI Personal Loan Eligibility Report",20,20)
+
+doc.setFontSize(12)
+doc.text("Net Salary: ₹"+SBIformat(SBIdata.net),20,40)
+doc.text("Existing EMI: ₹"+SBIformat(SBIdata.existing),20,50)
+doc.text("Interest Rate: "+SBIdata.roi+" %",20,60)
+doc.text("Tenure: "+SBIdata.tenure+" Months",20,70)
+
+doc.text("Eligible Loan: ₹"+SBIformat(SBIdata.finalLoan),20,90)
+doc.text("Estimated EMI: ₹"+SBIformat(SBIdata.newEmi),20,100)
+
+doc.save("SBI_Loan_Eligibility_Report.pdf")
+
+}
+
+SBIupdate()
+
+</script>
+<!-- INFORMATION SECTION -->
+
+<div style="background:#ffffff;margin:20px;border-radius:10px;padding:20px;box-shadow:0 4px 15px rgba(0,0,0,0.08);line-height:1.6">
+    <h2>How to Use SBI Personal Loan Eligibility Calculator</h2>
+
+    <p>
+      This calculator helps you estimate the maximum personal loan amount you may be eligible for based on your income and financial details.
+    </p>
+
+    <h3>Step-by-Step Guide</h3>
+
+    <ol>
+       <li><b>Enter Monthly Net Salary:</b> Input your net monthly income (after deductions).</li>
+      <li><b>Enter Existing EMIs:</b> Add all your current loan EMIs (if any).</li>
+      <li><b>Select Loan Tenure:</b> Choose repayment period (in months/years).</li>
+      <li><b>Enter Interest Rate:</b> Use expected rate (e.g., 9.70%–14%).</li>
+      <li><b>Click Calculate:</b> Instantly view your eligible loan amount.</li>
+    </ol>
+<h2 style="color:#0d47a1">About SBI Personal Loan Eligibility Calculator</h2>
+
+<p>
+The SBI Personal Loan Eligibility Calculator helps you estimate the maximum personal loan amount you may qualify for based on your monthly income, existing EMI obligations, interest rate, and loan tenure.
+</p>
+
+<p>
+Banks generally allow a portion of your monthly income to be used for EMI payments. This calculator estimates your EMI capacity and calculates the loan amount you can comfortably repay.
+</p>
+
+<p>
+The calculation is based on common banking guidelines such as:
+</p>
+
+<ul>
+<li>Maximum EMI allowed is usually around <b>35% to 40% of your net salary</b></li>
+<li>Existing EMIs reduce your loan eligibility</li>
+<li>Loan amount is calculated using the EMI formula based on interest rate and tenure</li>
+<li>Most banks also cap personal loans based on salary multiples</li>
+</ul>
+
+<h2 style="color:#0d47a1">SBI Personal Loan Interest Rates</h2>
+
+<p>
+Interest rates for SBI personal loans vary depending on your credit score, income, employer profile, and loan amount.
+</p>
+
+<p>
+You can check the latest interest rates directly on the official website of State Bank of India here:
+</p>
+
+<p>
+<a href="https://sbi.bank.in/web/personal-banking/loans/personal-loans/sbi-personal-loan#show"
+target="_blank"
+style="color:#0d47a1;font-weight:bold;text-decoration:none;">
+View SBI Personal Loan Interest Rates
+</a>
+</p>
+
+<p>
+Using the calculator above, you can estimate your loan eligibility before applying for a personal loan with SBI.
+</p>
+
+</div>
+</body>
+</html>
+</div>
+
+<!-- FD -->
+<div id="fd" class="tab-content">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="description" content="Free FD Calculator to calculate fixed deposit maturity value, interest earned and investment growth. Supports multiple compounding frequencies and interest payout options.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FD Calculator – Fixed Deposit Interest & Maturity Calculator India</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+<style>
+
+/* RESET */
+.FDwrapper *{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+/* BODY ISOLATION */
+.FDbody{
+font-family:Inter,system-ui;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+/* CONTENT STYLING */
+.FDcard h2{
+margin-bottom:12px;
+font-size:20px;
+color:#111827;
+}
+
+.FDcard p{
+margin-bottom:12px;
+color:#4b5563;
+line-height:1.6;
+}
+
+.FDcard ul, .FDcard ol{
+margin-left:20px;
+margin-bottom:12px;
+}
+
+.FDcard a{
+color:#4f46e5;
+text-decoration:none;
+}
+
+.FDcard a:hover{
+text-decoration:underline;
+}
+
+/* WRAPPER */
+.FDwrapper{
+width:100%;
+padding:25px;
+}
+
+/* TITLE */
+.FDtitle{
+font-size:26px;
+font-weight:700;
+text-align:center;
+margin-bottom:25px;
+color:#111827;
+}
+
+/* CARD */
+.FDcard{
+background:white;
+border-radius:16px;
+padding:25px;
+margin-bottom:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+width:100%;
+}
+
+/* GRID */
+.FDgrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:18px;
+}
+
+.FDlabel{
+font-size:13px;
+font-weight:600;
+color:#4b5563;
+}
+
+.FDinput, .FDselect{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+font-size:14px;
+}
+
+/* RESULTS */
+.FDresults{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.FDbox{
+flex:1;
+min-width:180px;
+background:#f9fafb;
+border-radius:12px;
+padding:18px;
+text-align:center;
+}
+
+.FDbox p{
+font-size:13px;
+color:#6b7280;
+}
+
+.FDbox h3{
+margin-top:6px;
+font-size:22px;
+}
+
+/* CHART */
+.FDchart{
+width:100%;
+max-width:420px;
+margin:30px auto;
+}
+
+/* TABLE */
+.FDtable{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+font-size:14px;
+}
+
+.FDth, .FDtd{
+border:1px solid #e5e7eb;
+padding:10px;
+text-align:center;
+}
+
+.FDth{
+background:#6366f1;
+color:white;
+}
+
+.FDtr:nth-child(even){
+background:#f9fafb;
+}
+
+/* BUTTON */
+.FDbutton{
+background:#6366f1;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+font-size:14px;
+cursor:pointer;
+margin-top:18px;
+}
+
+.FDbutton:hover{
+background:#4f46e5;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+.FDtitle{
+font-size:20px;
+}
+
+.FDwrapper{
+padding:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="FDbody">
+
+<div class="FDwrapper">
+
+<div class="FDtitle">Fixed Deposit Calculator</div>
+
+<div class="FDcard">
+
+<div class="FDgrid">
+
+<div>
+<label class="FDlabel">Deposit Amount</label>
+<input class="FDinput" type="number" id="FDAmount">
+</div>
+
+<div>
+<label class="FDlabel">Interest Rate (%)</label>
+<input class="FDinput" type="number" id="FDRate">
+</div>
+
+<div>
+<label class="FDlabel">Tenure (Years)</label>
+<input class="FDinput" type="number" id="FDYears">
+</div>
+
+<div>
+<label class="FDlabel">Compounding Frequency</label>
+<select class="FDselect" id="FDCompound">
+<option value="12">Monthly</option>
+<option value="4">Quarterly</option>
+<option value="2">Half-Yearly</option>
+<option value="1">Yearly</option>
+</select>
+</div>
+
+<div>
+<label class="FDlabel">Interest Payout</label>
+<select class="FDselect" id="FDPayout">
+<option value="cumulative">Cumulative</option>
+<option value="12">Monthly</option>
+<option value="4">Quarterly</option>
+<option value="2">Half-Yearly</option>
+<option value="1">Yearly</option>
+</select>
+</div>
+
+<div>
+<label class="FDlabel">Senior Citizen Extra Rate</label>
+<select class="FDselect" id="FDSenior">
+<option value="0">No</option>
+<option value="0.5">Yes (+0.5%)</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="FDcard">
+
+<div class="FDresults">
+
+<div class="FDbox">
+<p>Principal</p>
+<h3 id="FDPrincipal">₹0</h3>
+</div>
+
+<div class="FDbox">
+<p>Total Interest</p>
+<h3 id="FDInterest">₹0</h3>
+</div>
+
+<div class="FDbox">
+<p>Maturity Value</p>
+<h3 id="FDMaturity">₹0</h3>
+</div>
+
+</div>
+
+<div class="FDchart">
+<canvas id="FDPieChart"></canvas>
+</div>
+
+</div>
+
+<div class="FDcard">
+
+<h3>Interest Schedule</h3>
+
+<table id="FDSchedule" class="FDtable">
+
+<thead>
+<tr class="FDtr">
+<th class="FDth">Period</th>
+<th class="FDth">Interest</th>
+<th class="FDth">Total Paid</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<button class="FDbutton" onclick="FDdownloadPDF()">Download PDF</button>
+
+</div>
+
+</div>
+
+<script>
+/* JS unchanged */
+let FDChart;
+
+function FDcalculate(){
+
+let P=parseFloat(FDAmount.value)||0;
+let r=parseFloat(FDRate.value)||0;
+let years=parseFloat(FDYears.value)||0;
+let n=parseInt(FDCompound.value)||1;
+let payout=FDPayout.value;
+let senior=parseFloat(FDSenior.value)||0;
+
+r=(r+senior)/100;
+
+let totalInterest=0;
+let maturity=P;
+
+let tbody=document.querySelector("#FDSchedule tbody");
+tbody.innerHTML="";
+
+if(payout==="cumulative"){
+
+maturity=P*Math.pow((1+r/n),(n*years));
+totalInterest=maturity-P;
+
+tbody.innerHTML=`<tr>
+<td>${years} Years</td>
+<td>₹${totalInterest.toFixed(2)}</td>
+<td>₹${maturity.toFixed(2)}</td>
+</tr>`;
+
+}
+
+else{
+
+let freq=parseInt(payout);
+let periods=years*freq;
+let interestEach=P*r/freq;
+
+for(let i=1;i<=periods;i++){
+
+totalInterest+=interestEach;
+
+tbody.innerHTML+=`
+<tr>
+<td>${i}</td>
+<td>₹${interestEach.toFixed(2)}</td>
+<td>₹${totalInterest.toFixed(2)}</td>
+</tr>`;
+
+}
+
+maturity=P;
+
+}
+
+FDPrincipal.innerText="₹"+P.toLocaleString();
+FDInterest.innerText="₹"+totalInterest.toLocaleString();
+FDMaturity.innerText="₹"+maturity.toLocaleString();
+
+FDdrawChart(P,totalInterest);
+
+}
+
+function FDdrawChart(principal,interest){
+
+if(FDChart) FDChart.destroy();
+
+FDChart=new Chart(document.getElementById("FDPieChart"),{
+type:'pie',
+data:{
+labels:["Principal","Interest"],
+datasets:[{
+data:[principal,interest],
+backgroundColor:["#6366f1","#22c55e"],
+borderColor:"#ffffff",
+borderWidth:3
+}]
+},
+options:{
+plugins:{legend:{position:'bottom'}},
+animation:{animateScale:true}
+}
+});
+
+}
+
+document.querySelectorAll("input,select").forEach(el=>{
+el.addEventListener("input",FDcalculate);
+});
+
+FDcalculate();
+
+function FDdownloadPDF(){
+
+const {jsPDF}=window.jspdf;
+let doc=new jsPDF();
+
+doc.setFontSize(18);
+doc.text("Fixed Deposit Interest Schedule",14,18);
+
+let rows=[];
+
+document.querySelectorAll("#FDSchedule tbody tr").forEach(tr=>{
+let row=[];
+tr.querySelectorAll("td").forEach(td=>{
+row.push(td.innerText);
+});
+rows.push(row);
+});
+
+doc.autoTable({
+head:[["Period","Interest","Total Paid"]],
+body:rows,
+startY:30
+});
+
+doc.save("FD_Schedule.pdf");
+
+}
+</script>
+<div class="FDcard">
+
+<h2>About Fixed Deposit (FD) Calculator</h2>
+
+<p>
+A Fixed Deposit (FD) is one of the safest investment options offered by banks and financial institutions.
+It allows you to deposit a lump sum amount for a fixed tenure and earn guaranteed interest on it.
+</p>
+
+<p>
+This FD Calculator helps you estimate the maturity amount and total interest earned based on:
+</p>
+
+<ul>
+<li>Deposit Amount</li>
+<li>Interest Rate</li>
+<li>Investment Tenure</li>
+<li>Compounding Frequency</li>
+<li>Interest Payout Option</li>
+</ul>
+
+<p>
+The calculator instantly shows your maturity value, interest earned and a visual chart to help you understand your investment growth.
+</p>
+
+</div>
+
+
+<div class="FDcard">
+
+<h2>How to Use This FD Calculator</h2>
+
+<ol>
+<li>Enter your deposit amount.</li>
+<li>Enter the bank's interest rate.</li>
+<li>Select the investment tenure.</li>
+<li>Choose the compounding frequency.</li>
+<li>Select interest payout option.</li>
+<li>The calculator will automatically display your maturity value and interest earned.</li>
+</ol>
+
+</div>
+
+
+<div class="FDcard">
+
+<h2>FD Interest Rates of Major Banks</h2>
+
+<p>You can check the latest FD interest rates from major Indian banks below:</p>
+
+<ul>
+<li>
+<a href="https://www.canarabank.bank.in/pages/deposit-interest-rates" target="_blank">
+Canara Bank FD Interest Rates
+</a>
+</li>
+<li>
+<a href="https://sbi.bank.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits" target="_blank">
+State Bank of India FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://www.hdfc.bank.in/fixed-deposit/fd-interest-rate" target="_blank">
+HDFC Bank FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://www.icici.bank.in/personal-banking/deposits/fixed-deposit/fd-interest-rates#interest-rates-table-all" target="_blank">
+ICICI Bank FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://www.axis.bank.in/deposits/fixed-deposits/fd-interest-rates" target="_blank">
+Axis Bank FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://pnb.bank.in/Interest-Rates-Deposit.html" target="_blank">
+Punjab National Bank FD Interest Rates
+</a>
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="FDcard">
+
+<h2>Benefits of Fixed Deposits</h2>
+
+<ul>
+<li>Safe and low risk investment</li>
+<li>Guaranteed returns</li>
+<li>Flexible tenure options</li>
+<li>Senior citizen extra interest</li>
+<li>Loan facility against FD</li>
+<li>Multiple payout options</li>
+</ul>
+
+</div>
+</body>
+</html>
+</div>
+
+<!-- RD -->
+<div id="rd" class="tab-content">
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta name="description" content="Free RD Calculator to calculate recurring deposit maturity value, total investment and interest with schedule chart. Supports step-up deposits and PDF download. Best RD calculator for India.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RD Calculator – Recurring Deposit Maturity & Interest Calculator India</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+<style>
+
+/* RESET */
+.RDwrapper *{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
+
+/* BODY */
+.RDbody{
+font-family:Inter,system-ui;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+/* WRAPPER */
+.RDwrapper{
+width:100%;
+padding:25px 15px;
+}
+
+/* TITLE */
+.RDtitle{
+font-size:28px;
+font-weight:700;
+text-align:center;
+margin-bottom:25px;
+}
+
+/* CARD */
+.RDcard{
+background:white;
+border-radius:16px;
+padding:22px;
+margin-bottom:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+width:100%;
+}
+
+/* GRID */
+.RDgrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+}
+
+/* LABEL */
+.RDlabel{
+font-size:13px;
+font-weight:600;
+color:#4b5563;
+display:block;
+margin-bottom:5px;
+}
+
+/* INPUT */
+.RDinput, .RDselect{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+font-size:14px;
+}
+
+.RDinput:focus, .RDselect:focus{
+outline:none;
+border-color:#6366f1;
+box-shadow:0 0 0 2px rgba(99,102,241,0.2);
+}
+
+/* RESULTS */
+.RDresults{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.RDbox{
+flex:1;
+min-width:180px;
+background:#f9fafb;
+border-radius:12px;
+padding:18px;
+text-align:center;
+}
+
+.RDbox p{
+font-size:13px;
+color:#6b7280;
+}
+
+.RDbox h3{
+margin-top:6px;
+font-size:20px;
+}
+
+/* CHART */
+.RDchart{
+max-width:350px;
+margin:25px auto;
+}
+
+/* TABLE */
+.RDtable{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+font-size:14px;
+}
+
+.RDth, .RDtd{
+border:1px solid #e5e7eb;
+padding:10px;
+text-align:center;
+}
+
+.RDth{
+background:#6366f1;
+color:white;
+}
+
+.RDtr:nth-child(even){
+background:#f9fafb;
+}
+
+/* BUTTON */
+.RDbutton{
+background:#6366f1;
+color:white;
+border:none;
+padding:12px 18px;
+border-radius:10px;
+font-size:14px;
+cursor:pointer;
+margin-top:18px;
+}
+
+.RDbutton:hover{
+background:#4f46e5;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+.RDtitle{
+font-size:22px
+}
+
+.RDgrid{
+grid-template-columns:1fr
+}
+
+}
+
+</style>
+
+</head>
+
+<body class="RDbody">
+
+<div class="RDwrapper">
+
+<div class="RDtitle">Recurring Deposit Calculator</div>
+
+<div class="RDcard">
+
+<div class="RDgrid">
+
+<div>
+<label class="RDlabel">RD Deposit Amount</label>
+<input class="RDinput" type="number" id="RDAmount">
+</div>
+
+<div>
+<label class="RDlabel">RD Payment Frequency</label>
+<select class="RDselect" id="RDFrequency">
+<option value="12">Monthly</option>
+<option value="4">Quarterly</option>
+</select>
+</div>
+
+<div>
+<label class="RDlabel">RD Tenure (Years)</label>
+<input class="RDinput" type="number" id="RDYears">
+</div>
+
+<div>
+<label class="RDlabel">RD Interest Rate (%)</label>
+<input class="RDinput" type="number" id="RDRate">
+</div>
+
+<div>
+<label class="RDlabel">RD Compounding</label>
+<select class="RDselect" id="RDCompound">
+<option value="12">Monthly</option>
+<option value="4">Quarterly</option>
+<option value="2">Half-Yearly</option>
+<option value="1">Yearly</option>
+</select>
+</div>
+
+<div>
+<label class="RDlabel">RD Step-Up Amount</label>
+<input class="RDinput" type="number" id="RDStepAmount" value="0">
+</div>
+
+<div>
+<label class="RDlabel">RD Step-Up Frequency</label>
+<select class="RDselect" id="RDStepFreq">
+<option value="12">Yearly</option>
+<option value="4">Quarterly</option>
+<option value="1">Monthly</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="RDcard">
+
+<div class="RDresults">
+
+<div class="RDbox">
+<p>Total Investment</p>
+<h3 id="RDInvest">₹0</h3>
+</div>
+
+<div class="RDbox">
+<p>Total Interest</p>
+<h3 id="RDInterest">₹0</h3>
+</div>
+
+<div class="RDbox">
+<p>Maturity Value</p>
+<h3 id="RDMaturity">₹0</h3>
+</div>
+
+</div>
+
+<div class="RDchart">
+<canvas id="RDPieChart"></canvas>
+</div>
+
+</div>
+
+<div class="RDcard">
+
+<h3>RD Schedule</h3>
+
+<table id="RDSchedule" class="RDtable">
+
+<thead>
+<tr class="RDtr">
+<th class="RDth">Period</th>
+<th class="RDth">Deposit</th>
+<th class="RDth">Interest</th>
+<th class="RDth">Balance</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+<button class="RDbutton" onclick="RDdownloadPDF()">Download PDF</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* JS UNCHANGED */
+
+let RDChart;
+
+function RDcalculate(){
+
+let RDdeposit=parseFloat(RDAmount.value)||0;
+let RDpayFreq=parseInt(RDFrequency.value);
+let RDyears=parseFloat(RDYears.value)||0;
+let RDrate=parseFloat(RDRate.value)/100||0;
+let RDcompound=parseInt(RDCompound.value);
+let RDstepAmount=parseFloat(RDStepAmount.value)||0;
+let RDstepFreq=parseInt(RDStepFreq.value);
+
+let RDperiods=RDyears*RDpayFreq;
+
+let RDbalance=0;
+let RDtotalInvest=0;
+let RDtotalInterest=0;
+
+let RDtbody=document.querySelector("#RDSchedule tbody");
+RDtbody.innerHTML="";
+
+for(let i=1;i<=RDperiods;i++){
+
+if(RDstepAmount>0 && i%RDstepFreq===0){
+RDdeposit+=RDstepAmount;
+}
+
+RDbalance+=RDdeposit;
+RDtotalInvest+=RDdeposit;
+
+let RDinterest=RDbalance*(RDrate/RDcompound);
+
+RDbalance+=RDinterest;
+RDtotalInterest+=RDinterest;
+
+RDtbody.innerHTML+=`
+<tr>
+<td>${i}</td>
+<td>₹${RDdeposit.toFixed(2)}</td>
+<td>₹${RDinterest.toFixed(2)}</td>
+<td>₹${RDbalance.toFixed(2)}</td>
+</tr>`;
+
+}
+
+RDInvest.innerText="₹"+RDtotalInvest.toLocaleString();
+RDInterest.innerText="₹"+RDtotalInterest.toLocaleString();
+RDMaturity.innerText="₹"+RDbalance.toLocaleString();
+
+RDdrawChart(RDtotalInvest,RDtotalInterest);
+
+}
+
+function RDdrawChart(principal,interest){
+
+if(RDChart) RDChart.destroy();
+
+RDChart=new Chart(RDPieChart,{
+type:'pie',
+data:{
+labels:["Principal","Interest"],
+datasets:[{
+data:[principal,interest],
+backgroundColor:["#6366f1","#22c55e"]
+}]
+}
+});
+
+}
+
+document.querySelectorAll("input,select").forEach(el=>{
+el.addEventListener("input",RDcalculate);
+});
+
+RDcalculate();
+
+function RDdownloadPDF(){
+
+const {jsPDF}=window.jspdf;
+let RDdoc=new jsPDF();
+
+RDdoc.setFontSize(16);
+RDdoc.text("Recurring Deposit Schedule",14,18);
+
+let RDrows=[];
+
+document.querySelectorAll("#RDSchedule tbody tr").forEach(tr=>{
+let row=[];
+tr.querySelectorAll("td").forEach(td=>{
+row.push(td.innerText);
+});
+RDrows.push(row);
+});
+
+RDdoc.autoTable({
+head:[["Period","Deposit","Interest","Balance"]],
+body:RDrows,
+startY:25,
+theme:'grid'
+});
+
+RDdoc.save("RD_Schedule.pdf");
+
+}
+
+</script>
+
+</body>
+
+<div class="RDcard">
+  <h2>How to Use RD (Recurring Deposit) Calculator</h2>
+
+    <p>
+      This advanced RD calculator helps you estimate maturity value, total investment, and interest earned with flexible deposit and step-up options.
+    </p>
+
+    <h3>Step-by-Step Instructions</h3>
+
+    <ol>
+      <li><b>RD Deposit Amount:</b> Enter the amount you want to deposit regularly.</li>
+
+      <li><b>Deposit Frequency:</b> Choose how often you deposit:
+        <ul>
+          <li>Monthly</li>
+          <li>Quarterly</li>
+          <li>Half-Yearly</li>
+          <li>Yearly</li>
+        </ul>
+      </li>
+
+      <li><b>Tenure (Years):</b> Enter total duration of RD investment.</li>
+
+      <li><b>Rate of Interest (ROI):</b> Enter annual interest rate offered by bank.</li>
+
+      <li><b>Compounding Frequency:</b> Select how interest is compounded:
+        <ul>
+          <li>Monthly</li>
+          <li>Quarterly</li>
+          <li>Half-Yearly</li>
+          <li>Yearly</li>
+        </ul>
+      </li>
+
+      <li><b>Step-Up Amount (Optional):</b> Increase your deposit amount periodically.</li>
+
+      <li><b>Step-Up Frequency:</b> Choose how often deposit increases:
+        <ul>
+          <li>Monthly</li>
+          <li>Quarterly</li>
+          <li>Yearly</li>
+        </ul>
+      </li>
+
+      <li><b>Click Calculate:</b> View maturity amount, total investment, and interest earned.</li>
+    </ol>
+<h2 style="margin-bottom:10px;">About Recurring Deposit (RD)</h2>
+
+<p style="margin-bottom:10px;">
+A <b>Recurring Deposit (RD)</b> is a popular savings scheme offered by banks and financial institutions where you deposit a fixed amount every month for a fixed tenure and earn interest on it. It is ideal for individuals who want to build savings gradually with guaranteed returns.
+</p>
+
+<h3 style="margin-top:15px;">How RD Interest is Calculated</h3>
+
+<p style="margin-bottom:10px;">
+In a recurring deposit, interest is calculated based on the deposit amount, interest rate, tenure, and compounding frequency. Each monthly deposit earns interest for the remaining tenure until maturity.
+</p>
+
+<p style="margin-bottom:10px;">
+Generally, RD maturity value is calculated using the formula:
+</p>
+
+<p style="background:#f1f5f9;padding:12px;border-radius:8px;">
+M = R × [(1 + i)^n − 1] / [1 − (1 + i)^(-1/3)]
+</p>
+
+<ul style="margin-top:10px;margin-left:18px;">
+<li><b>M</b> = Maturity value</li>
+<li><b>R</b> = Monthly deposit</li>
+<li><b>i</b> = Interest rate</li>
+<li><b>n</b> = Number of months</li>
+</ul>
+
+<h3 style="margin-top:18px;">Benefits of Recurring Deposit</h3>
+
+<ul style="margin-left:18px;margin-top:10px;">
+<li>✔ Safe investment with guaranteed returns</li>
+<li>✔ Encourages regular savings habit</li>
+<li>✔ Flexible tenure options</li>
+<li>✔ Higher interest than regular savings accounts</li>
+<li>✔ Suitable for short and medium term financial goals</li>
+</ul>
+
+<h3 style="margin-top:18px;">Example</h3>
+
+<p>
+If you deposit <b>₹5,000 every month</b> for <b>5 years</b> at an interest rate of <b>7%</b> per annum, the total investment will be ₹3,00,000 and the maturity value will be higher depending on the compounding frequency.
+</p>
+
+<h2>RD Interest Rates of Major Banks</h2>
+
+<p>You can check the latest RD interest rates from major Indian banks below:</p>
+
+<ul>
+<li>
+<a href="https://www.canarabank.bank.in/pages/deposit-interest-rates" target="_blank">
+Canara Bank FD Interest Rates
+</a>
+</li>
+<li>
+<a href="https://sbi.bank.in/web/interest-rates/deposit-rates/retail-domestic-term-deposits" target="_blank">
+State Bank of India FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://www.hdfc.bank.in/fixed-deposit/fd-interest-rate" target="_blank">
+HDFC Bank FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://www.icici.bank.in/personal-banking/deposits/fixed-deposit/fd-interest-rates#interest-rates-table-all" target="_blank">
+ICICI Bank FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://www.axis.bank.in/deposits/fixed-deposits/fd-interest-rates" target="_blank">
+Axis Bank FD Interest Rates
+</a>
+</li>
+
+<li>
+<a href="https://pnb.bank.in/Interest-Rates-Deposit.html" target="_blank">
+Punjab National Bank FD Interest Rates
+</a>
+</li>
+
+</ul>
+
+</div>
+
+</html>
+</div>
+
+<!-- SIP -->
+<div id="sip" class="tab-content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="description" content="Free SIP Calculator with step-up option, goal SIP calculator, SIP vs lumpsum comparison and yearly schedule. Calculate SIP returns and plan investments easily.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SIP Calculator</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+font-family:Inter,system-ui;
+margin:0;
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+/* WRAPPER */
+
+.SIPwrapper{
+width:100%;
+padding:30px 20px;
+}
+
+/* TITLE */
+
+.SIPtitle{
+font-size:30px;
+font-weight:700;
+text-align:center;
+margin-bottom:30px;
+color:#111827;
+}
+
+/* CARD */
+
+.SIPcard{
+background:white;
+border-radius:16px;
+padding:28px;
+margin-bottom:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* INPUT GRID */
+
+.SIPgrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:18px;
+}
+
+label{
+font-size:13px;
+font-weight:600;
+color:#4b5563;
+}
+
+input,select{
+padding:12px;
+border-radius:10px;
+border:1px solid #e5e7eb;
+font-size:14px;
+width:100%;
+}
+
+/* RESULT BOXES */
+
+.SIPresults{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.SIPbox{
+flex:1;
+min-width:180px;
+background:#f9fafb;
+border-radius:12px;
+padding:18px;
+text-align:center;
+}
+
+.SIPbox p{
+margin:0;
+font-size:13px;
+color:#6b7280;
+}
+
+.SIPbox h3{
+margin-top:6px;
+font-size:22px;
+}
+
+/* CHART */
+
+.SIPchart{
+max-width:420px;
+margin:30px auto;
+}
+
+/* CHART GRID */
+
+.SIPcharts{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+margin-top:20px;
+}
+
+canvas{
+width:100%!important;
+height:auto!important;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+font-size:14px;
+}
+
+th,td{
+border:1px solid #e5e7eb;
+padding:10px;
+text-align:center;
+}
+
+th{
+background:#6366f1;
+color:white;
+}
+
+tr:nth-child(even){
+background:#f9fafb;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.SIPcharts{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="SIPwrapper">
+
+<div class="SIPtitle">Systematic Investment Plan (SIP) Calculator</div>
+
+<div class="SIPcard">
+
+<div class="SIPgrid">
+
+<div>
+<label>Monthly SIP Amount</label>
+<input type="number" id="sipAmount">
+</div>
+
+<div>
+<label>Investment Period (Years)</label>
+<input type="number" id="sipYears">
+</div>
+
+<div>
+<label>Expected Return (%)</label>
+<input type="number" id="sipRate">
+</div>
+
+<div>
+<label>Step-Up Type</label>
+<select id="sipStepType">
+<option value="percent">Percentage</option>
+<option value="amount">Amount</option>
+</select>
+</div>
+
+<div>
+<label>Step-Up Value</label>
+<input type="number" id="sipStepValue">
+</div>
+
+<div>
+<label>Step-Up Frequency</label>
+<select id="sipFreq">
+<option value="12">Yearly</option>
+<option value="6">Half-Yearly</option>
+<option value="3">Quarterly</option>
+</select>
+</div>
+
+</div>
+
+</div>
+
+<div class="SIPcard">
+
+<div class="SIPresults">
+
+<div class="SIPbox">
+<p>Total Invested</p>
+<h3 id="sipInvested">₹0</h3>
+</div>
+
+<div class="SIPbox">
+<p>Total Returns</p>
+<h3 id="sipReturns">₹0</h3>
+</div>
+
+<div class="SIPbox">
+<p>Future Value</p>
+<h3 id="sipValue">₹0</h3>
+</div>
+
+</div>
+
+<div class="SIPchart">
+<canvas id="sipPieChart"></canvas>
+</div>
+
+<div class="SIPcharts">
+<canvas id="sipGrowthChart"></canvas>
+<canvas id="sipCompareChart"></canvas>
+</div>
+
+</div>
+
+<div class="SIPcard">
+
+<h3>Goal SIP Calculator</h3>
+
+<div class="SIPgrid">
+
+<div>
+<label>Goal Amount</label>
+<input type="number" id="sipGoalAmount">
+</div>
+
+<div>
+<label>Years</label>
+<input type="number" id="sipGoalYears">
+</div>
+
+<div>
+<label>Expected Return (%)</label>
+<input type="number" id="sipGoalRate">
+</div>
+
+</div>
+
+<p id="sipGoalResult" style="margin-top:15px;font-weight:600"></p>
+
+</div>
+
+<div class="SIPcard">
+
+<h3>Year-wise SIP Schedule</h3>
+
+<table id="sipSchedule">
+
+<thead>
+<tr>
+<th>Year</th>
+<th>Total Invested</th>
+<th>Portfolio Value</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let sipPieChart,sipGrowthChart,sipCompareChart;
+
+function sipCalculate(){
+
+let sip=parseFloat(sipAmount.value)||0;
+let years=parseFloat(sipYears.value)||0;
+let rate=(parseFloat(sipRate.value)||0)/100/12;
+
+let stepType=sipStepType.value;
+let stepValue=parseFloat(sipStepValue.value)||0;
+let freq=parseInt(sipFreq.value);
+
+let months=years*12;
+
+let invested=0;
+let balance=0;
+let currentSip=sip;
+
+let growth=[];
+let lumpsumGrowth=[];
+
+let table="";
+
+let lump=sip*12*years;
+let lumpBalance=lump;
+
+for(let i=1;i<=months;i++){
+
+if(i>1 && (i-1)%freq==0){
+
+if(stepType==="percent"){
+currentSip=currentSip*(1+stepValue/100);
+}else{
+currentSip=currentSip+stepValue;
+}
+
+}
+
+balance=(balance+currentSip)*(1+rate);
+
+lumpBalance=lumpBalance*(1+rate);
+
+invested+=currentSip;
+
+growth.push(balance);
+lumpsumGrowth.push(lumpBalance);
+
+if(i%12===0){
+
+table+=`
+<tr>
+<td>${i/12}</td>
+<td>₹${invested.toFixed(0)}</td>
+<td>₹${balance.toFixed(0)}</td>
+</tr>`;
+
+}
+
+}
+
+document.querySelector("#sipSchedule tbody").innerHTML=table;
+
+let returns=balance-invested;
+
+sipInvested.innerText="₹"+invested.toLocaleString();
+sipReturns.innerText="₹"+returns.toLocaleString();
+sipValue.innerText="₹"+balance.toLocaleString();
+
+drawCharts(invested,returns,growth,lumpsumGrowth);
+
+goalCalc();
+
+}
+
+function drawCharts(invested,returns,growth,lumpsum){
+
+if(sipPieChart) sipPieChart.destroy();
+if(sipGrowthChart) sipGrowthChart.destroy();
+if(sipCompareChart) sipCompareChart.destroy();
+
+sipPieChart=new Chart(sipPieChart=document.getElementById("sipPieChart"),{
+type:"pie",
+data:{
+labels:["Invested","Returns"],
+datasets:[{
+data:[invested,returns],
+backgroundColor:["#6366f1","#22c55e"]
+}]
+}
+});
+
+sipGrowthChart=new Chart(document.getElementById("sipGrowthChart"),{
+type:"line",
+data:{
+labels:growth.map((v,i)=>i+1),
+datasets:[{
+label:"SIP Growth",
+data:growth,
+borderColor:"#6366f1",
+tension:0.3
+}]
+}
+});
+
+sipCompareChart=new Chart(document.getElementById("sipCompareChart"),{
+type:"line",
+data:{
+labels:growth.map((v,i)=>i+1),
+datasets:[
+{
+label:"SIP",
+data:growth,
+borderColor:"#6366f1"
+},
+{
+label:"Lumpsum",
+data:lumpsum,
+borderColor:"#22c55e"
+}
+]
+}
+});
+
+}
+
+function goalCalc(){
+
+let goal=parseFloat(sipGoalAmount.value)||0;
+let years=parseFloat(sipGoalYears.value)||0;
+let rate=(parseFloat(sipGoalRate.value)||0)/100/12;
+
+let months=years*12;
+
+if(goal>0 && years>0 && rate>0){
+
+let sip=(goal*rate)/(Math.pow(1+rate,months)-1);
+
+sipGoalResult.innerText="Required Monthly SIP: ₹"+sip.toFixed(0);
+
+}else{
+
+sipGoalResult.innerText="";
+
+}
+
+}
+
+document.querySelectorAll("input,select").forEach(el=>{
+el.addEventListener("input",sipCalculate);
+});
+
+sipCalculate();
+
+</script>
+<div class="SIPcard">
+
+<h3>What is SIP (Systematic Investment Plan)?</h3>
+
+<p>
+A <b>Systematic Investment Plan (SIP)</b> is a disciplined investment method where an investor invests a fixed amount of money at regular intervals, usually monthly, into mutual funds or other investment instruments. SIP helps investors build wealth gradually through the power of compounding and rupee cost averaging.
+</p>
+
+<p>
+Instead of investing a large lump sum amount at once, SIP allows investors to invest small amounts regularly. Over time, these investments grow and generate returns based on the expected rate of return.
+</p>
+
+<h3>How SIP is Calculated</h3>
+
+<p>
+SIP returns are calculated using the future value of a series of monthly investments compounded at a specific rate of return. The formula used to estimate SIP maturity value is:
+</p>
+
+<p style="background:#f3f4f6;padding:15px;border-radius:10px">
+<b>Future Value of SIP = P × [((1 + r)^n − 1) / r] × (1 + r)</b>
+</p>
+
+<ul>
+<li><b>P</b> = Monthly investment amount</li>
+<li><b>r</b> = Monthly expected return (annual return ÷ 12)</li>
+<li><b>n</b> = Total number of months invested</li>
+</ul>
+
+<p>
+This calculator automatically applies this formula and shows the estimated future value of your investment along with total invested amount and total returns.
+</p>
+
+<h3>What is Step-Up SIP?</h3>
+
+<p>
+A <b>Step-Up SIP</b> means increasing your SIP investment amount periodically (yearly, half-yearly, or quarterly). As your income increases over time, you can increase your SIP contribution to accelerate wealth creation.
+</p>
+
+<p>
+For example, if you start with a monthly SIP of ₹5,000 and increase it by 10% every year, your SIP amount becomes ₹5,500 next year, ₹6,050 the following year, and so on.
+</p>
+
+<h3>Importance of Step-Up SIP</h3>
+
+<ul>
+<li>Helps match investment with increasing income</li>
+<li>Accelerates wealth creation</li>
+<li>Helps achieve financial goals faster</li>
+<li>Increases final investment value significantly</li>
+</ul>
+
+<p>
+Even a small yearly increase in SIP amount can create a much larger investment corpus due to compounding.
+</p>
+
+<h3>Goal Based SIP Calculation</h3>
+
+<p>
+The <b>Goal SIP Calculator</b> helps determine the monthly SIP required to achieve a specific financial goal such as buying a house, funding education, or retirement planning.
+</p>
+
+<p>
+To calculate the required SIP:
+</p>
+
+<ul>
+<li>Enter your target goal amount</li>
+<li>Enter the number of years to achieve the goal</li>
+<li>Enter expected annual return</li>
+</ul>
+
+<p>
+The calculator estimates the monthly SIP required to reach your goal based on compounding returns.
+</p>
+
+<h3>Why SIP is Important for Investors</h3>
+
+<ul>
+<li>Encourages disciplined investing</li>
+<li>Reduces market timing risk</li>
+<li>Benefits from compounding</li>
+<li>Affordable and flexible investment method</li>
+<li>Helps achieve long-term financial goals</li>
+</ul>
+
+<p>
+SIP is one of the most popular investment strategies for long-term wealth creation and financial planning.
+</p>
+
+</div>
+</body>
+</html>
+</div>
+<div class="contact-box">
+
+<h3>Contact Us</h3>
+
+<div class="contact-links">
+
+<a href="https://www.linkedin.com/in/siddanagouda-biradar-524890117?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank">
+
+<img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+<span>LinkedIn Profile</span>
+
+</a>
+
+<a href="mailto:siddumbiradar46@gmail.com">
+
+<img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
+<span>Email</span>
+
+</a>
+
+</div>
+
+</div>
+<!-- ===== PRI TOGGLE TABS SECTION ===== -->
+
+<style>
+
+/* ===== TAB WRAPPER ===== */
+.PRITabWrapper{
+  max-width:900px;
+  margin:30px auto;
+}
+
+/* ===== TAB BUTTON ===== */
+.PRIToggleBtn{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:#007BFF;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-size:15px;
+  text-align:left;
+  cursor:pointer;
+}
+
+.PRIToggleBtn:hover{
+  background:#0056b3;
+}
+
+/* ===== CONTENT BOX ===== */
+.PRITabContent{
+  display:none;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  margin-top:5px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* ===== TEXT ===== */
+.PRIH1{
+  text-align:center;
+  color:#2c3e50;
+}
+
+.PRIH2{
+  color:#34495e;
+  margin-top:15px;
+}
+
+.PRIP{
+  color:#555;
+  line-height:1.6;
+}
+
+</style>
+
+<div class="PRITabWrapper">
+
+  <!-- ===== PRIVACY TAB ===== -->
+  <button class="PRIToggleBtn" onclick="PRIToggle('privacyBox')">
+    Privacy Policy
+  </button>
+
+  <div id="privacyBox" class="PRITabContent">
+  <h1 class="PRIH1">Privacy Policy</h1>
+
+<p class="PRIP">
+This Privacy Policy governs your use of this website and explains how we collect, use, and protect your information.
+By accessing or using this website, you agree to the terms outlined below.
+</p>
+
+<h2 class="PRIH2">1. Information We Collect</h2>
+<p class="PRIP">
+We may collect non-personal identification information including but not limited to browser type, device information,
+IP address, referring URLs, pages visited, and time spent on the website. This data is collected automatically
+through cookies, analytics tools, and server logs.
+</p>
+
+<h2 class="PRIH2">2. Use of Cookies</h2>
+<p class="PRIP">
+This website uses cookies to enhance user experience, analyze traffic, and serve relevant advertisements.
+Users may choose to disable cookies through their browser settings; however, some parts of the website may not function properly.
+</p>
+
+<h2 class="PRIH2">3. Google AdSense & Third-Party Advertising</h2>
+<p class="PRIP">
+We use third-party advertising services such as Google AdSense. These services may use cookies, web beacons,
+and similar technologies to serve ads based on your previous visits to this website or other websites.
+Google may use the DoubleClick cookie to show personalized advertisements.
+Users can opt out of personalized advertising by visiting Google Ads Settings.
+</p>
+
+<h2 class="PRIH2">4. How We Use Information</h2>
+<p class="PRIP">
+The information collected may be used to:
+<br>• Improve website functionality and user experience
+<br>• Analyze trends and user behavior
+<br>• Serve relevant advertisements
+<br>• Maintain website security and performance
+</p>
+
+<h2 class="PRIH2">5. Data Protection</h2>
+<p class="PRIP">
+We adopt reasonable security measures to protect your information. However, no method of transmission over the internet
+is 100% secure, and we cannot guarantee absolute security.
+</p>
+
+<h2 class="PRIH2">6. Third-Party Links</h2>
+<p class="PRIP">
+This website may contain links to external websites. We are not responsible for the content, privacy policies,
+or practices of any third-party websites.
+</p>
+
+<h2 class="PRIH2">7. Children's Information</h2>
+<p class="PRIP">
+This website does not knowingly collect personal information from children under the age of 13.
+If you believe that your child has provided personal information, please contact us and we will remove it promptly.
+</p>
+
+<h2 class="PRIH2">8. User Consent</h2>
+<p class="PRIP">
+By using this website, you consent to this Privacy Policy and agree to its terms.
+</p>
+
+<h2 class="PRIH2">9. Updates to This Policy</h2>
+<p class="PRIP">
+We reserve the right to update or modify this Privacy Policy at any time without prior notice.
+Changes will be posted on this page.
+</p>
+  </div>
+
+  <!-- ===== DISCLAIMER TAB ===== -->
+  <button class="PRIToggleBtn" onclick="PRIToggle('disclaimerBox')">
+    Disclaimer
+  </button>
+
+  <div id="disclaimerBox" class="PRITabContent">
+<h1 class="PRIH1">Disclaimer</h1>
+
+<p class="PRIP">
+The information and calculators provided on this website are for general informational and educational purposes only.
+They do not constitute financial, investment, legal, or professional advice.
+</p>
+
+<h2 class="PRIH2">1. No Financial Advice</h2>
+<p class="PRIP">
+This website does not provide financial advisory services. Users are advised to consult a qualified financial advisor,
+bank, or professional before making any financial decisions.
+</p>
+
+<h2 class="PRIH2">2. Accuracy of Information</h2>
+<p class="PRIP">
+While we strive to provide accurate and up-to-date information, we make no warranties or representations
+regarding the accuracy, completeness, reliability, or suitability of any calculations or content.
+</p>
+
+<h2 class="PRIH2">3. Calculator Limitations</h2>
+<p class="PRIP">
+All financial calculators provided on this website are based on standard formulas and assumptions.
+Actual results may vary depending on bank policies, interest rate changes, fees, and other factors.
+</p>
+
+<h2 class="PRIH2">4. No Liability</h2>
+<p class="PRIP">
+Under no circumstances shall we be held liable for any direct, indirect, incidental, or consequential loss
+or damage arising from the use of this website or reliance on its content.
+</p>
+
+<h2 class="PRIH2">5. External Links</h2>
+<p class="PRIP">
+This website may contain links to third-party websites for additional information.
+We do not control or endorse the content of these websites and are not responsible for their practices.
+</p>
+
+<h2 class="PRIH2">6. User Responsibility</h2>
+<p class="PRIP">
+Users are solely responsible for verifying any information before relying on it.
+All decisions made based on the content of this website are at the user's own risk.
+</p>
+
+<h2 class="PRIH2">7. Consent</h2>
+<p class="PRIP">
+By using this website, you agree to this disclaimer and accept all associated risks.
+</p>
+
+<h2 class="PRIH2">8. Updates</h2>
+<p class="PRIP">
+We reserve the right to modify this disclaimer at any time without prior notice.
+</p>
+  </div>
+
+</div>
+
+<script>
+
+/* ===== TOGGLE FUNCTION ===== */
+function PRIToggle(id){
+  var box = document.getElementById(id);
+
+  if(box.style.display === "block"){
+    box.style.display = "none";
+  } else {
+    box.style.display = "block";
+  }
+}
+
+</script>
+<footer>
+© 2026 Financial Calculator Tools
+</footer>
+
+<script>
+
+function openTab(tabId, btn){
+
+document.querySelectorAll(".tab-content").forEach(tab=>{
+tab.classList.remove("active")
+})
+
+document.getElementById(tabId).classList.add("active")
+
+document.querySelectorAll(".tab-btn").forEach(b=>{
+b.classList.remove("active")
+})
+
+btn.classList.add("active")
+
+window.scrollTo({top:0,behavior:"smooth"})
+
+}
+
+</script>
+
+</body>
+</html>
